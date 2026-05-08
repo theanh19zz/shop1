@@ -102,24 +102,6 @@
             background: #000;
         }
 
-        .btn-buy-now {
-            background: #d63031;
-            color: #fff;
-            border: none;
-            padding: 18px 20px;
-            font-weight: 700;
-            text-transform: uppercase;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: 0.3s;
-            flex: 1;
-            font-size: 15px;
-        }
-
-        .btn-buy-now:hover {
-            background: #b32d2d;
-        }
-
         .product-header-info {
             margin-bottom: 20px;
             border-bottom: 1px solid #eee;
@@ -219,144 +201,6 @@
                 width: 80px;
             }
         }
-        /* Shopee Style Similar Products */
-        .similar-products-section {
-            background-color: #f5f5f5;
-            padding: 40px 0;
-            margin-top: 60px;
-        }
-
-        .section-header-shopee {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .section-header-shopee h2 {
-            font-size: 16px;
-            font-weight: 500;
-            color: #888;
-            text-transform: uppercase;
-        }
-
-        .view-all-link {
-            color: #ee4d2d;
-            text-decoration: none;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .shopee-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 10px;
-        }
-
-        .shopee-product-card {
-            background: #fff;
-            border-radius: 2px;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-            position: relative;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(0,0,0,.05);
-        }
-
-        .shopee-product-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 1px 20px 0 rgba(0,0,0,.05);
-            z-index: 1;
-            border-color: #ee4d2d;
-        }
-
-        .shopee-card-img {
-            width: 100%;
-            padding-top: 100%; /* Square */
-            position: relative;
-        }
-
-        .shopee-card-img img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .shopee-badge-mall {
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: #d0011b;
-            color: #fff;
-            font-size: 10px;
-            padding: 0 4px;
-            border-radius: 0 0 2px 0;
-            z-index: 2;
-        }
-
-        .shopee-card-info {
-            padding: 8px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .shopee-product-name {
-            font-size: 12px;
-            line-height: 14px;
-            height: 28px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .shopee-card-footer {
-            margin-top: auto;
-        }
-
-        .shopee-price-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 5px;
-        }
-
-        .shopee-price {
-            color: #ee4d2d;
-            font-size: 16px;
-        }
-
-        .shopee-sold {
-            font-size: 10px;
-            color: rgba(0,0,0,.54);
-        }
-
-        .shopee-rating {
-            display: flex;
-            align-items: center;
-            gap: 2px;
-            margin-top: 4px;
-        }
-
-        .shopee-rating ion-icon {
-            font-size: 10px;
-            color: #ffce3d;
-        }
-
-        @media (max-width: 1200px) { .shopee-grid { grid-template-columns: repeat(4, 1fr); } }
-        @media (max-width: 768px) { .shopee-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 
@@ -375,7 +219,8 @@
                 style="cursor:pointer">
             <div class="header_actions">
                 <div id="display_login">
-                    <span id="user_name" style="margin-right: 10px; font-weight: 500; cursor: pointer;"></span>
+                    <a href="#" id="logout" onclick="logout();"><span id="user_name"></span> <ion-icon
+                            name="log-out-outline"></ion-icon></a>
                 </div>
                 <a href="login.html" id="login_btn"><ion-icon name="person-circle-outline"></ion-icon></a>
                 <a href="#" class="icon-cart"><ion-icon name="cart-outline"></ion-icon><span
@@ -425,7 +270,7 @@
                     </div>
                     <div class="product_price_area">
                         <span class="current-price" id="display_price">0đ</span>
-                        <span class="old-price-detail" id="display_old_price" style="display:none;"></span>
+                        <span class="old-price-detail" id="display_old_price"></span>
                     </div>
                     <div id="product_stock_status"
                         style="margin-bottom: 15px; font-size: 14px; display: flex; align-items: center; gap: 8px;">
@@ -453,7 +298,6 @@
                         <button id="plus">+</button>
                     </div>
                     <button id="btn_add" class="btn-add-cart">THÊM VÀO GIỎ</button>
-                    <button id="btn_buy_now" class="btn-buy-now">MUA NGAY</button>
                 </div>
 
                 <!-- Accordion thông tin thêm -->
@@ -510,20 +354,28 @@
             </div>
         </section>
 
-        <!-- Shopee Style Similar Products Section -->
-        <section class="similar-products-section">
-            <div class="container">
-                <div class="section-header-shopee">
-                    <h2>CÓ THỂ BẠN CŨNG THÍCH</h2>
-                    <a href="products.html" class="view-all-link">Xem Tất Cả <ion-icon name="chevron-forward-outline"></ion-icon></a>
-                </div>
-                <div class="shopee-grid" id="similar-products-grid">
-                    <!-- JS will render Shopee-style cards here -->
-                </div>
-            </div>
+        <!-- Similar Products Section -->
+        <section class="similar-products-section container" style="margin-top: 60px;">
+            <h2 style="text-align: center; margin-bottom: 30px;">Sản phẩm tương tự</h2>
+            <div class="products" id="similar-products-grid"></div>
         </section>
     </main>
 
+    <div class="cart-section">
+        <div class="cart-header">
+            <h2>GIỎ HÀNG</h2>
+            <div class="closeCart"><ion-icon name="close-outline"></ion-icon></div>
+        </div>
+        <div class="cart_products"></div>
+        <div class="cart_total">
+            <h3>Tổng tiền thanh toán (bao gồm ship):</h3>
+            <span id="total_price">0đ</span>
+        </div>
+        <div class="btn_control">
+            <button class="viewCart" onclick="window.location.href='cartPage.html'">Xem Giỏ Hàng</button>
+            <button class="checkout" onclick="checkOut();">Thanh Toán</button>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="footer-bottom">
@@ -541,34 +393,6 @@
     <script src="JavaScript/main.js"></script>
     <script src="JavaScript/cart.js"></script>
     <script src="JavaScript/ProductDetails.js"></script>
-    <script>
-        // Ensure window.parsePrice is available for cart.js
-        if (typeof window.parsePrice !== 'function') {
-            window.parsePrice = (price) => parseInt(String(price).replace(/[^0-9]/g, '')) || 0;
-        }
-    </script>
-    <!-- redesigned sidebar cart -->
-    <div class="cart-section" id="cartSidebar">
-        <div class="cart-header">
-            <h2>GIỎ HÀNG</h2>
-            <div class="closeCart" id="closeCartBtn">
-                <ion-icon name="close-outline"></ion-icon>
-            </div>
-        </div>
-        <div class="cart_products_sidebar">
-            <!-- Items added by JS -->
-        </div>
-        <div class="cart_footer">
-            <div class="total_info">
-                <p>Tổng tiền thanh toán:</p>
-                <h3 id="sidebar_total_price">0đ</h3>
-            </div>
-            <div class="sidebar_btns">
-                <button class="btn_view_cart" onclick="location.href='cartPage.html'">XEM GIỎ HÀNG</button>
-                <button class="btn_checkout" onclick="checkOut()">THANH TOÁN</button>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>
